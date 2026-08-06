@@ -34,12 +34,23 @@ mkdirSync(OUT, { recursive: true });
 const overflow390 = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
 log('No horizontal overflow at 390px', overflow390 <= 1, `delta=${overflow390}px`);
 
-// ===== 2. Hero pull-up fix: ProductShowcase document-top aligns with hero top (no overlap, no gap) =====
+// ===== 2. Hero pull-up removed on mobile: ProductShowcase flows BELOW hero; video is hit-test visible =====
 const psDocTop = await page.evaluate(() => {
   const el = document.getElementById('product-showcase');
   return Math.round(el.getBoundingClientRect().top + window.scrollY);
 });
-log('Product showcase aligned under hero (no vh/svh mismatch)', psDocTop >= -1 && psDocTop <= 2, `docTop=${psDocTop}px (expect 0)`);
+const heroHeight = await page.locator('#hero').evaluate((el) => Math.round(el.getBoundingClientRect().height));
+log('Product showcase sits below hero on mobile (no overlap)', psDocTop >= heroHeight - 1, `psDocTop=${psDocTop}px heroHeight=${heroHeight}px`);
+
+const videoHit = await page.evaluate(() => {
+  const v = document.querySelector('#hero video');
+  const r = v.getBoundingClientRect();
+  const x = r.left + r.width / 2;
+  const y = r.top + r.height * 0.6;
+  const el = document.elementFromPoint(x, y);
+  return el === v || v.contains(el);
+});
+log('Hero video is hit-test visible (not covered by product section)', videoHit, videoHit ? 'video on top' : 'covered');
 
 // ===== 3. Video poster present (instant first paint) =====
 const poster = await page.locator('#hero video').evaluate((v) => v.getAttribute('poster'));

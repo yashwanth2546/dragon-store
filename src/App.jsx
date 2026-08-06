@@ -125,8 +125,8 @@ export default function App() {
 
       <main className="relative">
         <DragonHeroSequenceSection />
-        {/* pulled up under the hero so the final macro-close-up crossfades into product photography */}
-        <div className="relative z-0 -mt-[100svh]">
+        {/* pulled up under the hero so the final macro-close-up crossfades into product photography (desktop pinned-stage only) */}
+        <div className="relative z-0 md:-mt-[100vh]">
           <ProductShowcase onAddToCart={addToCart} />
         </div>
         <MacroSpecSection />
