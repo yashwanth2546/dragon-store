@@ -50,7 +50,7 @@ export function QuickSearchModal({ isOpen, onClose }) {
             className="w-full max-w-xl overflow-hidden rounded-2xl border border-line bg-surface"
           >
             <div className="flex items-center gap-3 border-b border-line p-4">
-              <Search className="h-5 w-5 shrink-0 text-violet" />
+              <Search className="h-5 w-5 shrink-0 text-gold" />
               <input
                 ref={inputRef}
                 type="text"
@@ -62,7 +62,7 @@ export function QuickSearchModal({ isOpen, onClose }) {
               <button
                 onClick={onClose}
                 aria-label="Close"
-                className="interactive flex h-8 w-8 items-center justify-center rounded-lg border border-line text-mut transition-colors hover:border-violet/50 hover:text-violet-bright"
+                className="interactive flex h-8 w-8 items-center justify-center rounded-lg border border-line text-mut transition-colors hover:border-gold/50 hover:text-gold-bright"
               >
                 <X className="h-4 w-4" />
               </button>
@@ -83,19 +83,19 @@ export function QuickSearchModal({ isOpen, onClose }) {
                     className="interactive group flex w-full items-center justify-between gap-3 rounded-xl p-3 transition-colors hover:bg-bg"
                   >
                     <div className="flex items-center gap-3">
-                      <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-gradient-to-br from-violet/25 to-violet-bright/25 font-display text-sm text-violet-bright">
+                      <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-gradient-to-br from-gold/25 to-gold-bright/25 font-display text-sm text-gold-bright">
                         {item.name[0]}
                       </div>
                       <div className="text-left">
-                        <p className="font-tech text-sm font-semibold text-ink transition-colors group-hover:text-violet-bright">
+                        <p className="font-tech text-sm font-semibold text-ink transition-colors group-hover:text-gold-bright">
                           {item.name}
                         </p>
-                        <p className="font-tech text-[10px] uppercase tracking-wider text-dim">
+                        <p className="font-tech text-[10px] uppercase tracking-wider text-gold-muted">
                           {item.cat} · {item.spec}
                         </p>
                       </div>
                     </div>
-                    <ArrowRight className="h-4 w-4 text-dim transition-all group-hover:translate-x-1 group-hover:text-violet" />
+                    <ArrowRight className="h-4 w-4 text-dim transition-all group-hover:translate-x-1 group-hover:text-gold" />
                   </button>
                 ))
               )}

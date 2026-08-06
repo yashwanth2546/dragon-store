@@ -32,13 +32,13 @@ export function Navbar({ cartCount, onOpenCart, onOpenSearch, isCartBouncing, sm
         {/* Brand */}
         <button onClick={() => go('hero')} className="interactive group flex items-center gap-3">
           <div className="relative flex h-9 w-9 items-center justify-center">
-            <div className="absolute inset-0 rounded-lg bg-gradient-to-br from-violet-deep to-violet-bright opacity-90 blur-[6px] transition-opacity group-hover:opacity-100" />
-            <div className="relative flex h-9 w-9 items-center justify-center rounded-lg bg-surface font-display text-lg text-violet-bright">
+            <div className="absolute inset-0 rounded-lg bg-gradient-to-br from-gold-deep to-gold-bright opacity-90 blur-[6px] transition-opacity group-hover:opacity-100" />
+            <div className="relative flex h-9 w-9 items-center justify-center rounded-lg bg-surface font-display text-lg text-gold-bright">
               R
             </div>
           </div>
           <div className="text-left leading-none">
-            <span className="block font-display text-xl tracking-wide text-ink">RYUGEAR</span>
+            <span className="block font-display text-xl tracking-wide text-gold-bright">RYUGEAR</span>
             <span className="mt-0.5 block font-tech text-[9px] uppercase tracking-[0.35em] text-dim">
               Esports peripherals
             </span>
@@ -51,7 +51,7 @@ export function Navbar({ cartCount, onOpenCart, onOpenSearch, isCartBouncing, sm
             <button
               key={c}
               onClick={() => go('product-showcase')}
-              className="interactive relative font-tech text-[13px] uppercase tracking-[0.15em] text-mut transition-colors hover:text-ink after:absolute after:-bottom-1.5 after:left-0 after:h-px after:w-0 after:bg-violet after:transition-all after:duration-300 hover:after:w-full"
+              className="interactive relative font-tech text-[13px] uppercase tracking-[0.15em] text-mut transition-colors hover:text-gold-bright after:absolute after:-bottom-1.5 after:left-0 after:h-px after:w-0 after:bg-gold after:transition-all after:duration-300 hover:after:w-full"
             >
               {c}
             </button>
@@ -63,7 +63,7 @@ export function Navbar({ cartCount, onOpenCart, onOpenSearch, isCartBouncing, sm
           <button
             onClick={onOpenSearch}
             aria-label="Search"
-            className="interactive flex h-10 w-10 items-center justify-center rounded-lg border border-line text-mut transition-colors hover:border-violet/50 hover:text-violet-bright"
+            className="interactive flex h-10 w-10 items-center justify-center rounded-lg border border-line text-mut transition-colors hover:border-gold/50 hover:text-gold-bright"
           >
             <Search className="h-4 w-4" />
           </button>
@@ -73,11 +73,11 @@ export function Navbar({ cartCount, onOpenCart, onOpenSearch, isCartBouncing, sm
             aria-label="Open cart"
             animate={isCartBouncing ? { scale: [1, 1.2, 0.95, 1.08, 1] } : { scale: 1 }}
             transition={{ duration: 0.45 }}
-            className="interactive relative flex h-10 items-center gap-2 rounded-lg bg-violet px-4 font-tech text-xs font-semibold uppercase tracking-widest text-bg transition-colors hover:bg-violet-bright"
+            className="interactive relative flex h-10 items-center gap-2 rounded-lg bg-gold px-4 font-tech text-xs font-semibold uppercase tracking-widest text-bg transition-colors hover:bg-gold-bright"
           >
             <ShoppingBag className="h-4 w-4" />
             <span className="hidden sm:inline">Cart</span>
-            <span className="flex h-5 min-w-5 items-center justify-center rounded-full bg-bg px-1 font-tech text-[11px] font-bold text-violet-bright">
+            <span className="flex h-5 min-w-5 items-center justify-center rounded-full bg-bg px-1 font-tech text-[11px] font-bold text-gold-bright">
               {cartCount}
             </span>
           </motion.button>

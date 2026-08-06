@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Gauge, Timer, Cpu, Crosshair, Zap } from 'lucide-react';
+import { CloudMotif } from './CloudMotif';
 
 const macroPoints = [
   {
@@ -26,8 +27,9 @@ const stats = [
 export function MacroSpecSection() {
   return (
     <section id="spec-section" className="relative overflow-hidden bg-bg-2 py-24 sm:py-36">
-      <div className="absolute -left-40 top-1/3 h-[40%] w-[40%] rounded-full bg-violet-deep/20 blur-[160px]" />
-      <div className="absolute -right-32 bottom-0 h-[35%] w-[35%] rounded-full bg-violet/10 blur-[150px]" />
+      <CloudMotif />
+      <div className="absolute -left-40 top-1/3 h-[40%] w-[40%] rounded-full bg-gold-deep/20 blur-[160px]" />
+      <div className="absolute -right-32 bottom-0 h-[35%] w-[35%] rounded-full bg-gold/10 blur-[150px]" />
 
       <div className="relative mx-auto max-w-[1600px] px-5 sm:px-10 lg:px-16">
         {/* Header */}
@@ -37,7 +39,7 @@ export function MacroSpecSection() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.7 }}
-            className="mb-4 font-tech text-xs uppercase tracking-[0.35em] text-violet"
+            className="mb-4 font-tech text-xs uppercase tracking-[0.35em] text-gold"
           >
             / 02 — Built Different
           </motion.p>
@@ -50,7 +52,7 @@ export function MacroSpecSection() {
           >
             The macro is the
             <br />
-            <span className="text-gradient-violet glow-text">weapon.</span>
+            <span className="text-gradient-gold glow-text">weapon.</span>
           </motion.h2>
         </div>
 
@@ -73,18 +75,18 @@ export function MacroSpecSection() {
 
             {/* Scope overlay */}
             <div className="pointer-events-none absolute inset-0">
-              <div className="absolute left-1/2 top-1/2 h-3/4 w-px -translate-x-1/2 -translate-y-1/2 bg-gradient-to-b from-transparent via-violet/40 to-transparent" />
-              <div className="absolute left-1/2 top-1/2 h-px w-3/4 -translate-x-1/2 -translate-y-1/2 bg-gradient-to-r from-transparent via-violet/40 to-transparent" />
+              <div className="absolute left-1/2 top-1/2 h-3/4 w-px -translate-x-1/2 -translate-y-1/2 bg-gradient-to-b from-transparent via-gold/40 to-transparent" />
+              <div className="absolute left-1/2 top-1/2 h-px w-3/4 -translate-x-1/2 -translate-y-1/2 bg-gradient-to-r from-transparent via-gold/40 to-transparent" />
             </div>
 
-            <div className="absolute left-4 top-4 z-10 flex items-center gap-2 rounded-sm border border-violet/30 bg-bg/60 px-3 py-1.5 font-tech text-[10px] uppercase tracking-[0.25em] text-violet-bright backdrop-blur">
-              <span className="h-1.5 w-1.5 animate-ping-soft rounded-full bg-violet" />
+            <div className="absolute left-4 top-4 z-10 flex items-center gap-2 rounded-sm border border-gold/30 bg-bg/60 px-3 py-1.5 font-tech text-[10px] uppercase tracking-[0.25em] text-gold-bright backdrop-blur">
+              <span className="h-1.5 w-1.5 animate-ping-soft rounded-full bg-gold" />
               Hall-Effect · Macro Analysis
             </div>
 
             {/* Caption */}
             <div className="absolute bottom-4 left-4 z-10 flex items-center gap-2 font-tech text-[10px] uppercase tracking-[0.25em] text-dim">
-              <Crosshair className="h-3.5 w-3.5 text-violet" />
+              <Crosshair className="h-3.5 w-3.5 text-gold" />
               Brushed-gold scroll · 0.1mm detent
             </div>
           </motion.div>
@@ -101,7 +103,7 @@ export function MacroSpecSection() {
                 We don't sell gear. We hand you the round. Every switch, sensor and
                 shell is chosen so you react{' '}
                 <span className="text-ink">0.3ms sooner</span> — because in esports the
-                macro isn't a feature, <span className="text-violet-bright">it's a weapon.</span>
+                macro isn't a feature, <span className="text-gold-bright">it's a weapon.</span>
               </p>
             </motion.div>
 
@@ -116,7 +118,7 @@ export function MacroSpecSection() {
                   transition={{ duration: 0.6, delay: 0.2 + i * 0.12 }}
                   className="flex items-start gap-4 rounded-lg border border-line bg-surface p-5"
                 >
-                  <span className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-md bg-violet/15 font-tech text-sm font-bold text-violet-bright">
+                  <span className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-md bg-gold/15 font-tech text-sm font-bold text-gold-bright">
                     {String(i + 1).padStart(2, '0')}
                   </span>
                   <div>
@@ -140,9 +142,9 @@ export function MacroSpecSection() {
                   transition={{ duration: 0.6, delay: 0.1 + i * 0.1 }}
                   className="flex flex-col gap-1 rounded-lg border border-line bg-surface p-4"
                 >
-                  <s.icon className="h-4 w-4 text-violet" />
-                  <span className="font-display text-2xl text-ink">{s.value}</span>
-                  <span className="font-tech text-[10px] uppercase tracking-[0.2em] text-dim">{s.label}</span>
+                  <s.icon className="h-4 w-4 text-gold" />
+                  <span className="font-display text-2xl font-semibold text-gold-bright">{s.value}</span>
+                  <span className="font-tech text-[10px] uppercase tracking-[0.2em] text-gold-muted">{s.label}</span>
                 </motion.div>
               ))}
             </div>
@@ -153,10 +155,10 @@ export function MacroSpecSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8, delay: 0.3 }}
-              className="flex items-center justify-between rounded-xl border border-violet/30 bg-violet/5 p-6"
+              className="flex items-center justify-between rounded-xl border border-gold/30 bg-gold/5 p-6"
             >
               <div className="flex items-center gap-3">
-                <Zap className="h-5 w-5 text-violet-bright" />
+                <Zap className="h-5 w-5 text-gold-bright" />
                 <p className="font-tech text-xs uppercase tracking-[0.25em] text-dim">
                   Level up your game
                 </p>

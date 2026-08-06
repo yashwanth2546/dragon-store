@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { CloudMotif } from './CloudMotif';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -14,6 +15,120 @@ const framePath = (index) =>
 
 function clamp01(v) {
   return v < 0 ? 0 : v > 1 ? 1 : v;
+}
+
+/* Drifting ember particles — sprite-based for cheap glow; intensity scales
+   with scrub progress so the fire "breathes" as the dragon emerges. */
+function EmberField() {
+  const ref = useRef(null);
+
+  useEffect(() => {
+    const canvas = ref.current;
+    const ctx = canvas.getContext('2d');
+    let raf = 0;
+    let width = 0;
+    let height = 0;
+    let particles = [];
+    let visible = true;
+    const intensity = { current: 0.5 };
+
+    const makeSprite = (r, g, b) => {
+      const s = document.createElement('canvas');
+      s.width = s.height = 64;
+      const c = s.getContext('2d');
+      const grad = c.createRadialGradient(32, 32, 0, 32, 32, 32);
+      grad.addColorStop(0, `rgba(${r},${g},${b},1)`);
+      grad.addColorStop(0.4, `rgba(${r},${g},${b},0.45)`);
+      grad.addColorStop(1, `rgba(${r},${g},${b},0)`);
+      c.fillStyle = grad;
+      c.fillRect(0, 0, 64, 64);
+      return s;
+    };
+    const sprites = [
+      makeSprite(242, 204, 87),  // gold-bright
+      makeSprite(217, 168, 60),  // gold
+      makeSprite(255, 170, 90),  // ember amber
+      makeSprite(255, 240, 230), // hot white
+    ];
+
+    const spawn = (anywhere) => {
+      const size = 5 + Math.random() * 15;
+      return {
+        x: Math.random() * width,
+        y: anywhere ? Math.random() * height : height + size,
+        vx: (Math.random() - 0.5) * 0.12,
+        vy: -(0.1 + Math.random() * 0.35),
+        sway: Math.random() * Math.PI * 2,
+        swaySpeed: 0.004 + Math.random() * 0.012,
+        size,
+        sprite: sprites[(Math.random() * sprites.length) | 0],
+        alpha: 0.3 + Math.random() * 0.6,
+        phase: Math.random() * Math.PI * 2,
+      };
+    };
+
+    const seed = () => {
+      const count = Math.round(Math.min(70, (width * height) / 26000));
+      particles = Array.from({ length: count }, () => spawn(true));
+    };
+
+    const resize = () => {
+      const rect = canvas.getBoundingClientRect();
+      if (rect.width < 2 || rect.height < 2) return;
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      width = rect.width;
+      height = rect.height;
+      canvas.width = Math.round(width * dpr);
+      canvas.height = Math.round(height * dpr);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      seed();
+    };
+
+    const tick = () => {
+      raf = requestAnimationFrame(tick);
+      if (document.hidden || !visible) return;
+      ctx.clearRect(0, 0, width, height);
+      const target = 0.5 + (window.__dragonHero?.progress ?? 0) * 0.5;
+      intensity.current += (target - intensity.current) * 0.08;
+      for (let i = 0; i < particles.length; i++) {
+        const pt = particles[i];
+        pt.phase += 0.015 + Math.random() * 0.01;
+        pt.sway += pt.swaySpeed;
+        pt.x += pt.vx + Math.sin(pt.sway) * 0.15;
+        pt.y += pt.vy;
+        if (pt.y < -40 || pt.x < -40 || pt.x > width + 40) {
+          particles[i] = spawn(false);
+          continue;
+        }
+        const twinkle = 0.55 + 0.45 * Math.sin(pt.phase);
+        ctx.globalAlpha = pt.alpha * twinkle * intensity.current;
+        ctx.drawImage(pt.sprite, pt.x - pt.size / 2, pt.y - pt.size / 2, pt.size, pt.size);
+      }
+      ctx.globalAlpha = 1;
+    };
+
+    resize();
+    tick();
+    const io = new IntersectionObserver(
+      ([entry]) => { visible = entry.isIntersecting; },
+      { threshold: 0 }
+    );
+    io.observe(canvas);
+    window.addEventListener('resize', resize);
+    return () => {
+      cancelAnimationFrame(raf);
+      io.disconnect();
+      window.removeEventListener('resize', resize);
+    };
+  }, []);
+
+  return (
+    <canvas
+      ref={ref}
+      data-role="embers"
+      className="pointer-events-none absolute inset-0 z-[2] h-full w-full mix-blend-screen"
+    />
+  );
 }
 
 function useIsDesktop(onRelease) {
@@ -242,6 +357,7 @@ export function DragonHeroSequenceSection() {
       ref={sectionRef}
       className={useSequence ? 'relative h-[400vh] bg-bg' : 'relative flex min-h-[100svh] overflow-hidden bg-bg'}
     >
+      <CloudMotif />
       {/* video fallback: mobile / low-end / reduced-motion */}
       {!useSequence && (
         <>
@@ -256,8 +372,8 @@ export function DragonHeroSequenceSection() {
           />
           <div className="pointer-events-none absolute inset-0 bg-bg/20" />
           <div className="absolute left-5 top-28 z-10 flex flex-col sm:left-10 lg:left-16">
-            <span className="font-display text-[22px] uppercase tracking-wide text-ink">RYUGEAR</span>
-            <span className="mt-1.5 font-tech text-[10px] uppercase tracking-[0.3em] text-mut">
+            <span className="font-display text-[22px] uppercase tracking-wide text-gold-bright">RYUGEAR</span>
+            <span className="mt-1.5 font-tech text-[10px] uppercase tracking-[0.3em] text-gold-muted">
               Level up your game
             </span>
           </div>
@@ -270,7 +386,17 @@ export function DragonHeroSequenceSection() {
         data-overlay="stage"
         className={`absolute left-0 top-0 z-10 h-screen w-full overflow-hidden ${useSequence ? '' : 'hidden'}`}
       >
-        <canvas ref={canvasRef} className="absolute inset-0 h-full w-full" />
+        <canvas
+          ref={canvasRef}
+          data-role="stage"
+          className="stage-grade absolute inset-0 h-full w-full"
+        />
+
+        {/* cinematic atmosphere: gold glow behind dragon, embers, vignette, grain */}
+        <div data-overlay="glow" className="stage-glow pointer-events-none absolute inset-0 z-[1]" />
+        {useSequence && <EmberField />}
+        <div data-overlay="vignette" className="stage-vignette pointer-events-none absolute inset-0 z-[3]" />
+        <div data-overlay="grain" className="grain pointer-events-none absolute inset-0 z-[4]" />
 
         {/* ===== top-left wordmark lockup ===== */}
         <div
@@ -278,8 +404,8 @@ export function DragonHeroSequenceSection() {
           ref={wordmarkRef}
           className="pointer-events-none absolute left-5 top-28 z-10 flex flex-col sm:left-10 lg:left-16"
         >
-          <span className="font-display text-[22px] uppercase tracking-wide text-ink">RYUGEAR</span>
-          <span className="mt-1.5 font-tech text-[10px] uppercase tracking-[0.3em] text-mut">
+          <span className="font-display text-[22px] uppercase tracking-wide text-gold-bright">RYUGEAR</span>
+          <span className="mt-1.5 font-tech text-[10px] uppercase tracking-[0.3em] text-gold-muted">
             Level up your game
           </span>
         </div>
@@ -289,7 +415,7 @@ export function DragonHeroSequenceSection() {
           <div className="absolute inset-x-0 bottom-0 z-20">
             <div className="h-px w-full bg-line">
               <div
-                className="h-px bg-gradient-to-r from-violet-deep via-violet to-violet-bright transition-[width] duration-200"
+                className="h-px bg-gradient-to-r from-gold-deep via-gold to-gold-bright transition-[width] duration-200"
                 style={{ width: `${(loadedFirst / BATCH_1) * 100}%` }}
               />
             </div>

@@ -219,8 +219,8 @@ export function HeroSequenceSection() {
     return (
       <section id="hero" className="relative flex min-h-[100svh] overflow-hidden bg-bg">
         <div className="absolute inset-0 bg-grid bg-grid-fade" />
-        <div className="absolute -top-40 right-[-15%] h-[70%] w-[70%] rounded-full bg-violet/25 blur-[140px] opacity-60" />
-        <div className="absolute bottom-[-30%] left-[-10%] h-[55%] w-[55%] rounded-full bg-violet-deep/25 blur-[160px] opacity-50" />
+        <div className="absolute -top-40 right-[-15%] h-[70%] w-[70%] rounded-full bg-gold/25 blur-[140px] opacity-60" />
+        <div className="absolute bottom-[-30%] left-[-10%] h-[55%] w-[55%] rounded-full bg-gold-deep/25 blur-[160px] opacity-50" />
 
         <video
           className="absolute inset-0 h-full w-full object-cover opacity-60"
@@ -236,8 +236,8 @@ export function HeroSequenceSection() {
           <div className="max-w-[70ch]">
             <div className="mb-8 inline-flex items-center gap-3 rounded-full border border-line bg-surface/60 px-4 py-2 backdrop-blur">
               <span className="relative flex h-2 w-2">
-                <span className="animate-ping-soft absolute inline-flex h-full w-full rounded-full bg-violet" />
-                <span className="relative inline-flex h-2 w-2 rounded-full bg-violet-bright" />
+                <span className="animate-ping-soft absolute inline-flex h-full w-full rounded-full bg-gold" />
+                <span className="relative inline-flex h-2 w-2 rounded-full bg-gold-bright" />
               </span>
               <span className="font-tech text-[11px] uppercase tracking-[0.3em] text-mut">
                 Hyderabad · India · Esports Hardware
@@ -248,7 +248,7 @@ export function HeroSequenceSection() {
               <div className="text-[clamp(3.2rem,11vw,10rem)] text-ink">Level</div>
               <div className="flex items-end gap-3 sm:gap-6">
                 <div className="text-[clamp(3.2rem,11vw,10rem)] text-gradient glow-text">Up</div>
-                <div className="mb-3 hidden h-px flex-1 bg-gradient-to-r from-violet/50 to-transparent sm:block" />
+                <div className="mb-3 hidden h-px flex-1 bg-gradient-to-r from-gold/50 to-transparent sm:block" />
               </div>
               <div className="text-[clamp(3.2rem,11vw,10rem)] text-mut">
                 Your <span className="text-ink">Game.</span>
@@ -264,7 +264,7 @@ export function HeroSequenceSection() {
             <div className="mt-10 flex flex-wrap items-center gap-4">
               <button
                 onClick={() => document.getElementById('product-showcase')?.scrollIntoView({ behavior: 'smooth' })}
-                className="interactive inline-flex items-center gap-2 rounded-full bg-violet px-8 py-4 font-tech text-sm font-semibold uppercase tracking-widest text-bg transition-all hover:bg-violet-bright glow-violet"
+                className="interactive inline-flex items-center gap-2 rounded-full bg-gold px-8 py-4 font-tech text-sm font-semibold uppercase tracking-widest text-bg transition-all hover:bg-gold-bright glow-gold"
               >
                 Shop the loadout
               </button>
@@ -275,7 +275,7 @@ export function HeroSequenceSection() {
         <div className="absolute inset-x-0 bottom-0 z-10 border-t border-line bg-bg/40 backdrop-blur-md">
           <div className="mx-auto flex max-w-[1600px] items-center justify-between gap-6 px-5 py-4 sm:px-10 lg:px-16">
             <div className="flex items-center gap-3 font-tech text-[11px] uppercase tracking-[0.2em] text-dim">
-              <ArrowDown className="h-3.5 w-3.5 animate-bounce text-violet" />
+              <ArrowDown className="h-3.5 w-3.5 animate-bounce text-gold" />
               <span className="hidden sm:inline">Scroll to explore</span>
             </div>
             <div className="hidden items-center gap-8 font-tech text-[11px] uppercase tracking-[0.2em] text-dim md:flex">
@@ -304,9 +304,9 @@ export function HeroSequenceSection() {
       <div className="sticky top-0 h-screen w-full overflow-hidden">
         <canvas ref={canvasRef} className="absolute inset-0 h-full w-full" />
 
-        {/* ambient violet field */}
-        <div className="pointer-events-none absolute -top-40 right-[-15%] h-[70%] w-[70%] rounded-full bg-violet/20 blur-[150px]" />
-        <div className="pointer-events-none absolute bottom-[-30%] left-[-10%] h-[55%] w-[55%] rounded-full bg-violet-deep/20 blur-[170px]" />
+        {/* ambient gold field */}
+        <div className="pointer-events-none absolute -top-40 right-[-15%] h-[70%] w-[70%] rounded-full bg-gold/20 blur-[150px]" />
+        <div className="pointer-events-none absolute bottom-[-30%] left-[-10%] h-[55%] w-[55%] rounded-full bg-gold-deep/20 blur-[170px]" />
 
         {/* readability scrim behind the type */}
         <div
@@ -336,7 +336,7 @@ export function HeroSequenceSection() {
           style={{ opacity: 0 }}
           className="pointer-events-none absolute inset-0 z-10 flex flex-col items-center justify-center text-center"
         >
-          <p className="mb-5 font-tech text-[11px] uppercase tracking-[0.5em] text-violet-bright">
+          <p className="mb-5 font-tech text-[11px] uppercase tracking-[0.5em] text-gold-bright">
             Level up your game
           </p>
           <h2 className="font-display uppercase leading-[0.92] tracking-[-0.01em]">
@@ -359,7 +359,7 @@ export function HeroSequenceSection() {
         >
           <div className="mx-auto flex max-w-[1600px] items-center justify-between gap-6 px-5 py-4 sm:px-10 lg:px-16">
             <div className="flex items-center gap-3 font-tech text-[11px] uppercase tracking-[0.2em] text-dim">
-              <ArrowDown className="h-3.5 w-3.5 animate-bounce text-violet" />
+              <ArrowDown className="h-3.5 w-3.5 animate-bounce text-gold" />
               <span className="hidden sm:inline">Scroll to explore</span>
             </div>
             <div className="hidden items-center gap-8 font-tech text-[11px] uppercase tracking-[0.2em] text-dim md:flex">
@@ -382,7 +382,7 @@ export function HeroSequenceSection() {
           <div className="absolute inset-x-0 bottom-0 z-20">
             <div className="h-px w-full bg-line">
               <div
-                className="h-px bg-gradient-to-r from-violet-deep via-violet to-violet-bright transition-[width] duration-200"
+                className="h-px bg-gradient-to-r from-gold-deep via-gold to-gold-bright transition-[width] duration-200"
                 style={{ width: `${(loadedCount / TOTAL_FRAMES) * 100}%` }}
               />
             </div>

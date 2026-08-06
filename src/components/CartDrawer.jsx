@@ -26,7 +26,7 @@ export function CartDrawer({ isOpen, onClose, cartItems, onRemoveItem, onUpdateQ
             {/* Header */}
             <div className="flex items-center justify-between border-b border-line p-6">
               <div className="flex items-center gap-3">
-                <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-violet/15 text-violet-bright">
+                <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-gold/15 text-gold-bright">
                   <ShoppingBag className="h-4 w-4" />
                 </div>
                 <div>
@@ -41,7 +41,7 @@ export function CartDrawer({ isOpen, onClose, cartItems, onRemoveItem, onUpdateQ
               <button
                 onClick={onClose}
                 aria-label="Close"
-                className="interactive flex h-9 w-9 items-center justify-center rounded-lg border border-line text-mut transition-colors hover:border-violet/50 hover:text-violet-bright"
+                className="interactive flex h-9 w-9 items-center justify-center rounded-lg border border-line text-mut transition-colors hover:border-gold/50 hover:text-gold-bright"
               >
                 <X className="h-4 w-4" />
               </button>
@@ -71,7 +71,7 @@ export function CartDrawer({ isOpen, onClose, cartItems, onRemoveItem, onUpdateQ
                         exit={{ opacity: 0, x: 50 }}
                         className="flex gap-4 rounded-xl border border-line bg-bg/50 p-4"
                       >
-                        <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-lg bg-gradient-to-br from-violet/20 to-violet-bright/20 font-display text-xl text-violet-bright">
+                        <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-lg bg-gradient-to-br from-gold/20 to-gold-bright/20 font-display text-xl text-gold-bright">
                           {item.name[0]}
                         </div>
                         <div className="flex flex-1 flex-col justify-between">
@@ -95,7 +95,7 @@ export function CartDrawer({ isOpen, onClose, cartItems, onRemoveItem, onUpdateQ
                               <button
                                 onClick={() => onUpdateQty(item.id, -1)}
                                 aria-label="Decrease"
-                                className="interactive flex h-6 w-6 items-center justify-center rounded border border-line text-mut transition-colors hover:border-violet/50 hover:text-violet-bright"
+                                className="interactive flex h-6 w-6 items-center justify-center rounded border border-line text-mut transition-colors hover:border-gold/50 hover:text-gold-bright"
                               >
                                 <Minus className="h-3 w-3" />
                               </button>
@@ -103,12 +103,12 @@ export function CartDrawer({ isOpen, onClose, cartItems, onRemoveItem, onUpdateQ
                               <button
                                 onClick={() => onUpdateQty(item.id, 1)}
                                 aria-label="Increase"
-                                className="interactive flex h-6 w-6 items-center justify-center rounded border border-line text-mut transition-colors hover:border-violet/50 hover:text-violet-bright"
+                                className="interactive flex h-6 w-6 items-center justify-center rounded border border-line text-mut transition-colors hover:border-gold/50 hover:text-gold-bright"
                               >
                                 <Plus className="h-3 w-3" />
                               </button>
                             </div>
-                            <span className="font-display text-lg text-violet-bright">
+                            <span className="font-display text-lg font-semibold text-gold-bright">
                               ₹{(item.price * item.qty).toLocaleString('en-IN')}
                             </span>
                           </div>
@@ -123,10 +123,10 @@ export function CartDrawer({ isOpen, onClose, cartItems, onRemoveItem, onUpdateQ
             {/* Footer */}
             <div className="border-t border-line bg-bg/60 p-6">
               <div className="mb-4 flex items-center justify-between">
-                <span className="font-tech text-xs uppercase tracking-[0.25em] text-dim">Total</span>
-                <span className="font-display text-2xl text-ink">₹{total.toLocaleString('en-IN')}</span>
+                <span className="font-tech text-xs uppercase tracking-[0.25em] text-gold-muted">Total</span>
+                <span className="font-display text-2xl font-semibold text-gold-bright">₹{total.toLocaleString('en-IN')}</span>
               </div>
-              <button className="w-full rounded-lg bg-violet py-3.5 font-tech text-sm font-semibold uppercase tracking-widest text-bg transition-colors hover:bg-violet-bright">
+              <button className="w-full rounded-lg bg-gold py-3.5 font-tech text-sm font-semibold uppercase tracking-widest text-bg transition-colors hover:bg-gold-bright">
                 Checkout · demo
               </button>
               <p className="mt-3 text-center font-tech text-[10px] uppercase tracking-[0.2em] text-dim">

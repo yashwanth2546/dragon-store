@@ -71,7 +71,7 @@ export function KeyboardArt({ variant = 'ace', className = '' }) {
   const scale = viewW / totalW;
   const viewH = totalH * scale;
 
-  const accent = variant === 'ace' ? '#a855f7' : '#c7cad1';
+  const accent = variant === 'ace' ? '#d9a83c' : '#c7cad1';
   const plateFrom = variant === 'ace' ? '#1a1a26' : '#2b2d35';
   const plateTo = variant === 'ace' ? '#0b0b12' : '#14161c';
   const keyFrom = '#262635';
@@ -134,7 +134,7 @@ export function KeyboardArt({ variant = 'ace', className = '' }) {
                     height={KH}
                     rx={R}
                     fill={keyFill}
-                    stroke={isAccent ? 'rgba(168,85,247,0.35)' : 'rgba(255,255,255,0.07)'}
+                    stroke={isAccent ? 'rgba(217,168,60,0.35)' : 'rgba(255,255,255,0.07)'}
                     strokeWidth="1.2"
                   />
                   {isAccent && (
@@ -145,7 +145,7 @@ export function KeyboardArt({ variant = 'ace', className = '' }) {
                       height={KH - 4}
                       rx={R - 2}
                       fill="none"
-                      stroke="rgba(168,85,247,0.18)"
+                      stroke="rgba(217,168,60,0.18)"
                       strokeWidth="1"
                     />
                   )}

@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { MousePointerClick, Activity, Timer, Gauge } from 'lucide-react';
+import { CloudMotif } from './CloudMotif';
 
 const metrics = [
   { icon: Timer, label: 'Click-to-action latency', ryuValue: '0.3ms', standardValue: '8.2ms', pct: 96 },
@@ -11,7 +12,8 @@ const metrics = [
 export function BenchmarkSection() {
   return (
     <section id="benchmarks" className="relative overflow-hidden border-y border-line bg-bg-2 py-24 sm:py-32">
-      <div className="absolute -right-40 top-0 h-[50%] w-[45%] rounded-full bg-violet/15 blur-[160px]" />
+      <CloudMotif />
+      <div className="absolute -right-40 top-0 h-[50%] w-[45%] rounded-full bg-gold/15 blur-[160px]" />
 
       <div className="relative mx-auto max-w-[1600px] px-5 sm:px-10 lg:px-16">
         <div className="grid gap-12 lg:grid-cols-5 lg:gap-16">
@@ -22,7 +24,7 @@ export function BenchmarkSection() {
                 initial={{ opacity: 0, x: -30 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
-                className="mb-4 font-tech text-xs uppercase tracking-[0.35em] text-violet"
+                className="mb-4 font-tech text-xs uppercase tracking-[0.35em] text-gold"
               >
                 / 04 — Measured Advantage
               </motion.p>
@@ -35,7 +37,7 @@ export function BenchmarkSection() {
               >
                 Numbers
                 <br />
-                <span className="text-gradient-violet glow-text">don't lie.</span>
+                <span className="text-gradient-gold glow-text">don't lie.</span>
               </motion.h2>
 
               <motion.p
@@ -54,11 +56,11 @@ export function BenchmarkSection() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: 0.25 }}
-                className="mt-8 flex items-center gap-3 rounded-lg border border-violet/30 bg-violet/5 p-4"
+                className="mt-8 flex items-center gap-3 rounded-lg border border-gold/30 bg-gold/5 p-4"
               >
-                <Activity className="h-5 w-5 shrink-0 text-violet" />
+                <Activity className="h-5 w-5 shrink-0 text-gold" />
                 <p className="font-tech text-xs leading-relaxed text-mut">
-                  <span className="font-semibold text-violet-bright">RyuGear Benchmark Lab</span>
+                  <span className="font-semibold text-gold-bright">RyuGear Benchmark Lab</span>
                   <br />
                   Hyderabad · avg. 96% faster than stock peripherals
                 </p>
@@ -79,7 +81,7 @@ export function BenchmarkSection() {
               >
                 <div className="mb-5 flex flex-wrap items-center justify-between gap-3">
                   <div className="flex items-center gap-3">
-                    <div className="rounded-lg border border-line bg-bg/60 p-2 text-violet">
+                    <div className="rounded-lg border border-line bg-bg/60 p-2 text-gold">
                       <m.icon className="h-4 w-4" />
                     </div>
                     <span className="font-tech text-xs uppercase tracking-[0.2em] text-mut">{m.label}</span>
@@ -90,7 +92,7 @@ export function BenchmarkSection() {
                 </div>
 
                 <div className="flex items-baseline gap-3">
-                  <span className="font-display text-3xl text-violet-bright">{m.ryuValue}</span>
+                  <span className="font-display text-3xl font-semibold text-gold-bright">{m.ryuValue}</span>
                   <span className="font-body text-sm text-dim line-through">{m.standardValue}</span>
                 </div>
 
@@ -100,12 +102,12 @@ export function BenchmarkSection() {
                     whileInView={{ width: `${m.pct}%` }}
                     viewport={{ once: true }}
                     transition={{ delay: 0.4 + i * 0.15, duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-                    className="h-full rounded-full bg-gradient-to-r from-violet-deep to-violet-bright shadow-[0_0_12px_rgba(168,85,247,0.6)]"
+                    className="h-full rounded-full bg-gradient-to-r from-gold-deep to-gold-bright shadow-[0_0_12px_rgba(217,168,60,0.6)]"
                   />
                 </div>
 
                 <div className="mt-2 flex justify-between font-tech text-[10px] uppercase tracking-[0.2em] text-dim">
-                  <span className="text-violet">{m.pct}% faster</span>
+                  <span className="text-gold">{m.pct}% faster</span>
                   <span>Stock</span>
                 </div>
               </motion.div>

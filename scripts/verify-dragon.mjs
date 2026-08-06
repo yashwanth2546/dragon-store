@@ -37,7 +37,7 @@ async function scrollToFraction(fraction) {
 }
 
 async function canvasHash() {
-  const canvas = page.locator('#hero canvas').first();
+  const canvas = page.locator('#hero canvas[data-role="stage"]');
   const shot = await canvas.screenshot({ type: 'png' });
   let hash = 0;
   for (let i = 0; i < shot.length; i += 7) hash = (hash * 31 + shot[i]) % 999999937;
@@ -49,7 +49,7 @@ await page.goto(BASE, { waitUntil: 'domcontentloaded' });
 await page.waitForTimeout(1200);
 
 // --- Initial paint not blocked: canvas + wordmark render before first batch completes ---
-const canvasEarly = await page.locator('#hero canvas').count();
+const canvasEarly = await page.locator('#hero canvas[data-role="stage"]').count();
 const brandEarly = await page.locator('#hero [data-overlay="brand"]').isVisible().catch(() => false);
 log('Initial paint unblocked (canvas + wordmark visible pre-ready)', canvasEarly === 1 && brandEarly, `canvas=${canvasEarly} brand=${brandEarly}`);
 
@@ -79,6 +79,13 @@ const stateMid = await heroState();
 const hashMid = await canvasHash();
 log('Scroll-scrub draws frames', hashTop !== hashMid, `frame=${stateMid.frame}`);
 log('Frame index tracks progress (~p*240)', stateMid.frame >= 95 && stateMid.frame <= 150, `frame=${stateMid.frame} at p=${stateMid.progress?.toFixed(2)}`);
+
+// --- Atmosphere overlays present on desktop ---
+const embers = await page.locator('#hero canvas[data-role="embers"]').count();
+const glow = await page.locator('#hero [data-overlay="glow"]').count();
+const vignette = await page.locator('#hero [data-overlay="vignette"]').count();
+const grain = await page.locator('#hero [data-overlay="grain"]').count();
+log('Atmosphere overlays + embers mounted', embers === 1 && glow === 1 && vignette === 1 && grain === 1, `embers=${embers} glow=${glow} vignette=${vignette} grain=${grain}`);
 
 // --- Wordmark: top-left, dims to ~45% by p=0.15, holds, never 0 ---
 await scrollToFraction(0.03);
@@ -126,8 +133,10 @@ await page.evaluate(() => window.scrollTo(0, 0));
 await page.waitForTimeout(900);
 const videoCount = await page.locator('#hero video').count();
 const videoVisible = await page.locator('#hero video').isVisible().catch(() => false);
-const canvasVisible = await page.locator('#hero canvas').isVisible().catch(() => true);
+const canvasVisible = await page.locator('#hero canvas[data-role="stage"]').isVisible().catch(() => true);
 log('Mobile fallback uses mp4 (canvas hidden)', videoCount === 1 && videoVisible && !canvasVisible, `video=${videoCount} visible=${videoVisible} canvasVisible=${canvasVisible}`);
+const embersMobile = await page.locator('#hero canvas[data-role="embers"]').count();
+log('Mobile skips ember field', embersMobile === 0, `embers=${embersMobile}`);
 const wmPosBefore = await page.locator('#hero > div:not([data-overlay]) span:has-text("Level")').first().evaluate((el) => {
   const r = el.closest('div').getBoundingClientRect();
   const s = document.getElementById('hero').getBoundingClientRect();

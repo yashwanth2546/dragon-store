@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { ProductCard } from './ProductCard';
+import { CloudMotif } from './CloudMotif';
 
 const products = [
   {
@@ -36,7 +37,7 @@ const products = [
     variants: [
       { label: 'Black', value: 'black' },
       { label: 'White', value: 'white' },
-      { label: 'Violet', value: 'violet' },
+      { label: 'Gold', value: 'gold' },
     ],
   },
   {
@@ -62,6 +63,7 @@ const products = [
 export function ProductShowcase({ onAddToCart }) {
   return (
     <section id="product-showcase" className="relative overflow-hidden bg-bg py-24 sm:py-36">
+      <CloudMotif />
       <div className="absolute inset-0 bg-grid bg-grid-fade opacity-40" />
 
       <div className="relative mx-auto max-w-[1600px] px-5 sm:px-10 lg:px-16">
@@ -73,7 +75,7 @@ export function ProductShowcase({ onAddToCart }) {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.7 }}
-              className="mb-4 font-tech text-xs uppercase tracking-[0.35em] text-violet"
+              className="mb-4 font-tech text-xs uppercase tracking-[0.35em] text-gold"
             >
               / 01 — The Loadout
             </motion.p>
@@ -86,7 +88,7 @@ export function ProductShowcase({ onAddToCart }) {
             >
               Championship
               <br />
-              <span className="text-gradient-violet glow-text">ready loadout</span>
+              <span className="text-gradient-gold glow-text">ready loadout</span>
             </motion.h2>
           </div>
           <motion.div
@@ -94,7 +96,7 @@ export function ProductShowcase({ onAddToCart }) {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="max-w-xs border-l border-violet/40 pl-5"
+            className="max-w-xs border-l border-gold/40 pl-5"
           >
             <p className="font-body text-sm leading-relaxed text-mut">
               Three flagship builds, bench-tested in our Hyderabad lab. Hover to

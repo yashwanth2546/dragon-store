@@ -43,10 +43,10 @@ export function ProductCard({ product, index, onAddToCart }) {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.2 }}
       transition={{ duration: 0.8, delay: index * 0.14, ease: [0.16, 1, 0.3, 1] }}
-      className="group relative flex flex-col overflow-hidden rounded-2xl border border-line bg-surface transition-all duration-500 hover:border-violet/40 hover:shadow-[0_0_60px_-15px_rgba(168,85,247,0.35)]"
+      className="group relative flex flex-col overflow-hidden rounded-2xl border border-line bg-surface transition-all duration-500 hover:border-gold/40 hover:shadow-[0_0_60px_-15px_rgba(217,168,60,0.35)]"
     >
       {/* Index number */}
-      <span className="pointer-events-none absolute right-5 top-4 z-20 font-display text-5xl text-white/5 transition-colors group-hover:text-violet/20">
+      <span className="pointer-events-none absolute right-5 top-4 z-20 font-display text-5xl text-white/5 transition-colors group-hover:text-gold/20">
         {String(index + 1).padStart(2, '0')}
       </span>
 
@@ -60,7 +60,7 @@ export function ProductCard({ product, index, onAddToCart }) {
         className="relative aspect-[4/3] overflow-hidden border-b border-line [perspective:1100px]"
       >
         {/* Ambient glow */}
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_45%,rgba(168,85,247,0.16),transparent_65%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_45%,rgba(217,168,60,0.16),transparent_65%)]" />
         <div className="absolute inset-0 bg-grid bg-grid-fade opacity-60" />
 
         {/* Tilted product plane */}
@@ -84,7 +84,7 @@ export function ProductCard({ product, index, onAddToCart }) {
             opacity: hovered ? 1 : 0,
             transition: 'opacity 0.35s ease',
             background:
-              'conic-gradient(from 0deg, transparent 0deg, rgba(255,255,255,0.10) 55deg, rgba(168,85,247,0.08) 90deg, transparent 130deg)',
+              'conic-gradient(from 0deg, transparent 0deg, rgba(255,255,255,0.10) 55deg, rgba(217,168,60,0.08) 90deg, transparent 130deg)',
             mixBlendMode: 'screen',
           }}
         />
@@ -94,7 +94,7 @@ export function ProductCard({ product, index, onAddToCart }) {
           {product.badges?.map((badge) => (
             <span
               key={badge}
-              className="w-fit rounded-sm border border-violet/40 bg-bg/60 px-2 py-1 font-tech text-[10px] uppercase tracking-[0.2em] text-violet-bright backdrop-blur"
+              className="w-fit rounded-sm border border-gold/40 bg-bg/60 px-2 py-1 font-tech text-[10px] uppercase tracking-[0.2em] text-gold-bright backdrop-blur"
             >
               {badge}
             </span>
@@ -103,7 +103,7 @@ export function ProductCard({ product, index, onAddToCart }) {
 
         {/* Hint */}
         <div className="absolute right-4 top-4 z-20 flex items-center gap-1.5 font-tech text-[10px] uppercase tracking-[0.2em] text-dim opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-          <Rotate3D className="h-3 w-3 text-violet" />
+          <Rotate3D className="h-3 w-3 text-gold" />
           360° Inspect
         </div>
       </div>
@@ -112,13 +112,13 @@ export function ProductCard({ product, index, onAddToCart }) {
       <div className="relative flex flex-1 flex-col gap-4 p-6">
         <div className="flex items-start justify-between gap-3">
           <div>
-            <h3 className="font-tech text-xl font-semibold uppercase tracking-wide text-ink transition-colors group-hover:text-violet-bright">
+            <h3 className="font-tech text-xl font-semibold uppercase tracking-wide text-ink transition-colors group-hover:text-gold-bright">
               {product.name}
             </h3>
-            <p className="mt-1 font-body text-xs text-dim">{product.type}</p>
+            <p className="mt-1 font-body text-xs text-gold-muted">{product.type}</p>
           </div>
           <div className="flex shrink-0 items-center gap-1 rounded-sm border border-line px-2 py-1 font-tech text-xs text-mut">
-            <span className="text-violet">★</span> {product.rating}
+            <span className="text-gold">★</span> <span className="text-gold-bright font-semibold">{product.rating}</span>
           </div>
         </div>
 
@@ -136,7 +136,7 @@ export function ProductCard({ product, index, onAddToCart }) {
 
         {/* Price */}
         <div className="flex items-baseline gap-2.5">
-          <span className="font-display text-3xl text-ink">
+          <span className="font-display text-3xl font-semibold text-gold-bright">
             ₹{product.price.toLocaleString('en-IN')}
           </span>
           {product.oldPrice && (
@@ -161,8 +161,8 @@ export function ProductCard({ product, index, onAddToCart }) {
                 onClick={() => setSelectedVariant(v.value)}
                 className={`rounded-sm border px-2.5 py-1 font-tech text-xs transition-colors ${
                   selectedVariant === v.value
-                    ? 'border-violet bg-violet/15 text-violet-bright'
-                    : 'border-line text-mut hover:border-violet/40 hover:text-ink'
+                    ? 'border-gold bg-gold/15 text-gold-bright'
+                    : 'border-line text-mut hover:border-gold/40 hover:text-ink'
                 }`}
               >
                 {v.label}
@@ -174,7 +174,7 @@ export function ProductCard({ product, index, onAddToCart }) {
         {/* CTA */}
         <button
           onClick={() => onAddToCart(product, selectedVariant)}
-          className="interactive mt-auto flex items-center justify-center gap-2 rounded-lg border border-violet/40 bg-violet/10 py-3.5 font-tech text-sm font-semibold uppercase tracking-widest text-violet-bright transition-all hover:bg-violet hover:text-bg glow-violet"
+          className="interactive mt-auto flex items-center justify-center gap-2 rounded-lg border border-gold/40 bg-gold/10 py-3.5 font-tech text-sm font-semibold uppercase tracking-widest text-gold-bright transition-all hover:bg-gold hover:text-bg glow-gold"
         >
           <Plus className="h-4 w-4" />
           Add to cart

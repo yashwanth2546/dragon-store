@@ -1,6 +1,7 @@
 import React from 'react';
 import { Star, Quote } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { CloudMotif } from './CloudMotif';
 
 const reviews = [
   { author: 'Aryan K.', city: 'Hyderabad', text: 'The ACE 68 GT is a different game. 0.1mm actuation won me a 1v5 clutch in Valorant.' },
@@ -26,16 +27,16 @@ function MarqueeRow({ items, reverse = false }) {
             className="w-[320px] shrink-0 rounded-xl border border-line bg-surface p-5 sm:w-[380px]"
           >
             <div className="mb-3 flex items-center justify-between">
-              <div className="flex gap-0.5 text-violet">
+              <div className="flex gap-0.5 text-gold">
                 {[0, 1, 2, 3, 4].map((s) => (
-                  <Star key={s} className="h-3 w-3 fill-violet" />
+                  <Star key={s} className="h-3 w-3 fill-gold" />
                 ))}
               </div>
               <Quote className="h-4 w-4 text-dim" />
             </div>
             <blockquote className="font-body text-sm leading-relaxed text-mut">{r.text}</blockquote>
             <figcaption className="mt-4 flex items-center gap-2.5">
-              <span className="flex h-6 w-6 items-center justify-center rounded-full bg-gradient-to-br from-violet-deep to-violet-bright font-tech text-[11px] font-bold text-bg">
+              <span className="flex h-6 w-6 items-center justify-center rounded-full bg-gradient-to-br from-gold-deep to-gold-bright font-tech text-[11px] font-bold text-bg">
                 {r.author[0]}
               </span>
               <span className="font-tech text-[10px] uppercase tracking-[0.15em] text-dim">
@@ -54,6 +55,7 @@ export function SocialProofStrip() {
 
   return (
     <section className="relative overflow-hidden bg-bg py-24 sm:py-32">
+      <CloudMotif />
       <div className="mx-auto max-w-[1600px] px-5 sm:px-10 lg:px-16">
         <div className="mb-14 flex flex-col gap-8 md:flex-row md:items-end md:justify-between">
           <div>
@@ -61,7 +63,7 @@ export function SocialProofStrip() {
               initial={{ opacity: 0, x: -30 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              className="mb-4 font-tech text-xs uppercase tracking-[0.35em] text-violet"
+              className="mb-4 font-tech text-xs uppercase tracking-[0.35em] text-gold"
             >
               / 05 — The Community
             </motion.p>
@@ -73,7 +75,7 @@ export function SocialProofStrip() {
               className="font-display uppercase leading-[0.95] tracking-tight text-[clamp(2.4rem,5.5vw,4.5rem)] text-ink"
             >
               Rated by players.
-              <span className="text-mut"> Backed by pros.</span>
+              <span className="text-gold-bright"> Backed by pros.</span>
             </motion.h2>
           </div>
 
@@ -82,20 +84,20 @@ export function SocialProofStrip() {
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.7 }}
-            className="flex items-center gap-6 rounded-xl border border-violet/30 bg-gradient-to-br from-violet/10 to-transparent p-6"
+            className="flex items-center gap-6 rounded-xl border border-gold/30 bg-gradient-to-br from-gold/10 to-transparent p-6"
           >
             <div className="text-center">
-              <span className="font-display text-5xl text-ink">5.0</span>
-              <div className="mt-1 flex justify-center gap-0.5 text-violet">
+              <span className="font-display text-5xl font-semibold text-gold-bright">5.0</span>
+              <div className="mt-1 flex justify-center gap-0.5 text-gold">
                 {[0, 1, 2, 3, 4].map((s) => (
-                  <Star key={s} className="h-3.5 w-3.5 fill-violet" />
+                  <Star key={s} className="h-3.5 w-3.5 fill-gold" />
                 ))}
               </div>
             </div>
             <div className="h-12 w-px bg-line" />
             <div>
-              <span className="font-display text-5xl text-gradient-violet">130+</span>
-              <p className="mt-1 font-tech text-[10px] uppercase tracking-[0.2em] text-dim">
+              <span className="font-display text-5xl font-semibold text-gradient-gold">130+</span>
+              <p className="mt-1 font-tech text-[10px] uppercase tracking-[0.2em] text-gold-muted">
                 Verified reviews
                 <br />
                 across India

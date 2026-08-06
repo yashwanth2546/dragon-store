@@ -39,10 +39,10 @@ export function CustomCursor() {
     <div className="pointer-events-none fixed inset-0 z-[70]">
       {/* Core dot */}
       <motion.div
-        className="fixed left-0 top-0 h-1.5 w-1.5 rounded-full bg-violet-bright"
+        className="fixed left-0 top-0 h-1.5 w-1.5 rounded-full bg-gold-bright"
         animate={{ x: pos.x - 3, y: pos.y - 3, scale: down ? 0.6 : 1 }}
         transition={{ type: 'spring', damping: 35, stiffness: 500, mass: 0.1 }}
-        style={{ boxShadow: '0 0 12px rgba(192,132,252,0.9)' }}
+        style={{ boxShadow: '0 0 12px rgba(242,204,87,0.9)' }}
       />
       {/* Ring */}
       <motion.div
@@ -56,8 +56,8 @@ export function CustomCursor() {
         }}
         transition={{ type: 'spring', damping: 22, stiffness: 220, mass: 0.25 }}
         style={{
-          borderColor: hovered ? 'rgba(192,132,252,0.9)' : 'rgba(168,85,247,0.5)',
-          backgroundColor: hovered ? 'rgba(168,85,247,0.12)' : 'transparent',
+          borderColor: hovered ? 'rgba(242,204,87,0.9)' : 'rgba(217,168,60,0.5)',
+          backgroundColor: hovered ? 'rgba(217,168,60,0.12)' : 'transparent',
         }}
       />
     </div>
