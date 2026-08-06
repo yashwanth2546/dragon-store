@@ -6,7 +6,7 @@ import Lenis from 'lenis';
 import { IntroLoader } from './components/IntroLoader';
 import { CustomCursor } from './components/CustomCursor';
 import { Navbar } from './components/Navbar';
-import { HeroSequenceSection } from './components/HeroSequenceSection';
+import { DragonHeroSequenceSection } from './components/DragonHeroSequenceSection';
 import { ProductShowcase } from './components/ProductShowcase';
 import { MacroSpecSection } from './components/MacroSpecSection';
 import { CategoryGrid } from './components/CategoryGrid';
@@ -124,8 +124,11 @@ export default function App() {
       />
 
       <main className="relative">
-        <HeroSequenceSection />
-        <ProductShowcase onAddToCart={addToCart} />
+        <DragonHeroSequenceSection />
+        {/* pulled up under the hero so the final macro-close-up crossfades into product photography */}
+        <div className="relative z-0 -mt-[100vh]">
+          <ProductShowcase onAddToCart={addToCart} />
+        </div>
         <MacroSpecSection />
         <CategoryGrid />
         <BenchmarkSection />
