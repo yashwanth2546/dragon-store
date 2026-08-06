@@ -1,0 +1,21 @@
+{
+  "name": "RYUGEAR",
+  "short_name": "RYUGEAR",
+  "description": "India's flagship esports peripherals store. 16K polling hall-effect keyboards, 52g carbon-fibre mice, PAW3950 sensors, custom IEMs.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#06060a",
+  "theme_color": "#06060a",
+  "icons": [
+    {
+      "src": "/android-chrome-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/android-chrome-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
