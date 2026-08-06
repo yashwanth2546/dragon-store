@@ -131,31 +131,12 @@ function EmberField() {
   );
 }
 
-function useIsDesktop(onRelease) {
-  const [desktop, setDesktop] = useState(() =>
-    typeof window !== 'undefined' && window.matchMedia('(min-width: 768px)').matches
-  );
-  useEffect(() => {
-    const mq = window.matchMedia('(min-width: 768px)');
-    const onChange = () => {
-      /* Native event fires before React re-renders — release the ScrollTrigger
-         pin now so React never mutates DOM around an active pin-spacer. */
-      if (onRelease.current) onRelease.current();
-      setDesktop(mq.matches);
-    };
-    mq.addEventListener('change', onChange);
-    return () => mq.removeEventListener('change', onChange);
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
-  return desktop;
-}
-
 export function DragonHeroSequenceSection() {
   const releaseRef = useRef(null);
-  const desktop = useIsDesktop(releaseRef);
   const reduceMotion = typeof window !== 'undefined'
     && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const lowEnd = typeof navigator !== 'undefined' && (navigator.hardwareConcurrency || 8) <= 4;
-  const useSequence = desktop && !reduceMotion && !lowEnd;
+  const useSequence = !reduceMotion && !lowEnd;
 
   const sectionRef = useRef(null);
   const pinRef = useRef(null);
@@ -358,7 +339,7 @@ export function DragonHeroSequenceSection() {
       className={useSequence ? 'relative h-[400vh] bg-bg' : 'relative flex min-h-[100svh] overflow-hidden bg-bg'}
     >
       <CloudMotif />
-      {/* video fallback: mobile / low-end / reduced-motion */}
+      {/* video fallback: low-end devices / reduced-motion */}
       {!useSequence && (
         <>
           <video

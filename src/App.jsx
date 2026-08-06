@@ -111,7 +111,7 @@ export default function App() {
   const cartCount = cartItems.reduce((sum, item) => sum + item.qty, 0);
 
   return (
-    <div className="min-h-screen bg-bg text-ink">
+    <div className="min-h-screen overflow-x-clip bg-bg text-ink">
       {!isIntroDone && <IntroLoader onComplete={() => setIsIntroDone(true)} />}
 
       <CustomCursor />

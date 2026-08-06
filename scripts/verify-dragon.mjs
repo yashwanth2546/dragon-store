@@ -127,32 +127,41 @@ await scrollToFraction(1.0);
 await page.waitForTimeout(300);
 await page.screenshot({ path: '/tmp/dragon-hero-exit-1440.png' });
 
-// --- Mobile fallback 390: video plays, canvas hidden (still mounted for cleanup safety), static wordmark ---
+// --- Mobile 390: canvas scroll-scrub (same effect as desktop) ---
 await page.setViewportSize({ width: 390, height: 844 });
+await page.reload({ waitUntil: 'domcontentloaded' });
+await page.waitForTimeout(1200);
+const mReady = await page.waitForFunction(() => window.__dragonHero && window.__dragonHero.ready === true, null, { timeout: 60000 }).catch(() => null);
+log('Mobile canvas scrub activates (first batch loaded)', !!mReady, mReady ? `loadedFirst=${(await heroState()).loadedFirst}` : 'not ready');
+const mCanvas = await page.locator('#hero canvas[data-role="stage"]').isVisible().catch(() => false);
+const mVideoCount = await page.locator('#hero video').count();
+const mEmbers = await page.locator('#hero canvas[data-role="embers"]').count();
+log('Mobile uses canvas stage (no video fallback)', mCanvas && mVideoCount === 0, `canvas=${mCanvas} video=${mVideoCount} embers=${mEmbers}`);
+log('Mobile mounts ember field', mEmbers === 1, `embers=${mEmbers}`);
+
+const mHashTop = await canvasHash();
+await scrollToFraction(0.5);
+const mHashMid = await canvasHash();
+log('Mobile scroll-scrub advances frames', mHashTop !== mHashMid, `frame=${(await heroState()).frame} at p=${(await heroState()).progress?.toFixed(2)}`);
+
+await scrollToFraction(0.03);
+const wmMobileBright = await brandOpacity();
+await scrollToFraction(0.3);
+const wmMobileDim = await brandOpacity();
+log('Mobile wordmark bright then dims with scrub', wmMobileBright > 0.85 && wmMobileDim < 0.55, `bright=${wmMobileBright} dim=${wmMobileDim}`);
 await page.evaluate(() => window.scrollTo(0, 0));
-await page.waitForTimeout(900);
-const videoCount = await page.locator('#hero video').count();
-const videoVisible = await page.locator('#hero video').isVisible().catch(() => false);
-const canvasVisible = await page.locator('#hero canvas[data-role="stage"]').isVisible().catch(() => true);
-log('Mobile fallback uses mp4 (canvas hidden)', videoCount === 1 && videoVisible && !canvasVisible, `video=${videoCount} visible=${videoVisible} canvasVisible=${canvasVisible}`);
-const embersMobile = await page.locator('#hero canvas[data-role="embers"]').count();
-log('Mobile skips ember field', embersMobile === 0, `embers=${embersMobile}`);
-const wmPosBefore = await page.locator('#hero > div:not([data-overlay]) span:has-text("Level")').first().evaluate((el) => {
-  const r = el.closest('div').getBoundingClientRect();
-  const s = document.getElementById('hero').getBoundingClientRect();
-  return `${Math.round(r.left - s.left)},${Math.round(r.top - s.top)}`;
-}).catch(() => 'n/a');
-const wmOpacityBefore = await page.locator('#hero > div:not([data-overlay]) span:has-text("Level")').first().evaluate((el) => getComputedStyle(el.closest('div')).opacity).catch(() => 'n/a');
-await page.evaluate(() => window.scrollBy(0, 300));
 await page.waitForTimeout(600);
-const wmPosAfter = await page.locator('#hero > div:not([data-overlay]) span:has-text("Level")').first().evaluate((el) => {
-  const r = el.closest('div').getBoundingClientRect();
-  const s = document.getElementById('hero').getBoundingClientRect();
-  return `${Math.round(r.left - s.left)},${Math.round(r.top - s.top)}`;
-}).catch(() => 'n/a');
-const wmOpacityAfter = await page.locator('#hero > div:not([data-overlay]) span:has-text("Level")').first().evaluate((el) => getComputedStyle(el.closest('div')).opacity).catch(() => 'n/a');
-log('Mobile wordmark static top-left', wmPosBefore !== 'n/a' && wmPosBefore === wmPosAfter && wmOpacityBefore === '1' && wmOpacityAfter === '1', `${wmPosBefore} -> ${wmPosAfter} opacity ${wmOpacityBefore}->${wmOpacityAfter}`);
 await page.screenshot({ path: '/tmp/dragon-hero-390.png' });
+
+// --- Reduced-motion: video fallback still works ---
+await page.emulateMedia({ reducedMotion: 'reduce' });
+await page.reload({ waitUntil: 'domcontentloaded' });
+await page.waitForTimeout(900);
+const rvCount = await page.locator('#hero video').count();
+const rvVisible = await page.locator('#hero video').isVisible().catch(() => false);
+const rcVisible = await page.locator('#hero canvas[data-role="stage"]').isVisible().catch(() => true);
+const rEmbers = await page.locator('#hero canvas[data-role="embers"]').count();
+log('Reduced-motion fallback uses mp4 (canvas + embers hidden)', rvCount === 1 && rvVisible && !rcVisible && rEmbers === 0, `video=${rvCount} visible=${rvVisible} canvasVisible=${rcVisible} embers=${rEmbers}`);
 
 // --- Console errors ---
 const realErrors = errors.filter((e) => e.startsWith('[error]') || e.startsWith('[pageerror]'));
