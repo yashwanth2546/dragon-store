@@ -68,6 +68,24 @@ const barGone = await page.evaluate(() => {
 });
 log('Progress bar dismissed after first batch', barGone);
 
+// --- Frame 0 painted immediately at load (no blank canvas until scroll) ---
+const litAtLoad = await page.evaluate(() => {
+  const c = document.querySelector('#hero canvas[data-role="stage"]');
+  if (!c || c.width === 0) return -1;
+  const d = c.getContext('2d').getImageData(0, 0, c.width, c.height).data;
+  let lit = 0;
+  let total = 0;
+  for (let y = 0; y < c.height; y += 32) {
+    for (let x = 0; x < c.width; x += 32) {
+      const i = (y * c.width + x) * 4;
+      if (d[i] > 12 || d[i + 1] > 12 || d[i + 2] > 12) lit++;
+      total++;
+    }
+  }
+  return total ? Math.round((100 * lit) / total) : -1;
+});
+log('Frame 0 painted on load (no blank canvas)', litAtLoad >= 20, `lit=${litAtLoad}%`);
+
 // --- Background load continues toward 240 ---
 await page.waitForFunction(() => window.__dragonHero && window.__dragonHero.loaded >= 239, null, { timeout: 60000 });
 log('Remaining frames finish in background', (await heroState()).loaded >= 239, `loaded=${(await heroState()).loaded}`);

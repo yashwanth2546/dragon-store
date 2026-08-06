@@ -125,6 +125,10 @@ export default function App() {
 
       <main className="relative">
         <DragonHeroSequenceSection />
+        {/* mobile-only release buffer: guarantees the pinned hero (and its
+            wordmark) is fully released before the product heading scrolls in —
+            the desktop pinned-stage crossfade makes this gap unnecessary on md+ */}
+        <div className="h-24 bg-bg md:hidden" aria-hidden="true" />
         {/* pulled up under the hero so the final macro-close-up crossfades into product photography (desktop pinned-stage only) */}
         <div className="relative z-0 md:-mt-[100vh]">
           <ProductShowcase onAddToCart={addToCart} />

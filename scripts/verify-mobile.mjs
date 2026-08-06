@@ -50,6 +50,24 @@ const stageHit = await page.evaluate(() => {
 });
 log('Canvas stage is hit-test visible (not covered)', stageHit, stageHit ? 'stage on top' : 'covered');
 
+// ===== 2b. Frame 0 painted immediately on load (no blank canvas) =====
+const litAtLoad = await page.evaluate(() => {
+  const c = document.querySelector('#hero canvas[data-role="stage"]');
+  if (!c || c.width === 0) return -1;
+  const d = c.getContext('2d').getImageData(0, 0, c.width, c.height).data;
+  let lit = 0;
+  let total = 0;
+  for (let y = 0; y < c.height; y += 32) {
+    for (let x = 0; x < c.width; x += 32) {
+      const i = (y * c.width + x) * 4;
+      if (d[i] > 12 || d[i + 1] > 12 || d[i + 2] > 12) lit++;
+      total++;
+    }
+  }
+  return total ? Math.round((100 * lit) / total) : -1;
+});
+log('Frame 0 painted on load (no blank canvas)', litAtLoad >= 20, `lit=${litAtLoad}%`);
+
 async function scrollToFraction(fraction) {
   const heroTop = await page.locator('#hero').evaluate((el) => el.offsetTop);
   const scrub = await page.evaluate(() => {
@@ -151,7 +169,37 @@ await page.screenshot({ path: OUT + 'search-390.png' });
 await page.keyboard.press('Escape');
 await page.waitForTimeout(300);
 
-// ===== 7. Narrowest width 320 =====
+// ===== 7. Pin releases before heading enters — no overlap at any scroll speed =====
+const overlapScan = await page.evaluate(async () => {
+  const stage = document.querySelector('#hero [data-overlay="stage"]');
+  const wordmark = document.querySelector('#hero [data-overlay="brand"]');
+  const showcase = document.getElementById('product-showcase');
+  const hero = document.getElementById('hero');
+  const sectionH = hero.getBoundingClientRect().height;
+  const vh = () => window.innerHeight;
+  let release = -1;
+  let headEnter = -1;
+  let effAtEntry = 1;
+  let overlap = false;
+  for (let y = 0; y <= sectionH + 300; y += 16) {
+    window.scrollTo(0, y);
+    await new Promise((r) => requestAnimationFrame(() => requestAnimationFrame(r)));
+    const stageOpacity = parseFloat(getComputedStyle(stage).opacity);
+    const wmOpacity = parseFloat(wordmark.style.opacity || '1');
+    const effective = stageOpacity * wmOpacity;
+    const wmRect = wordmark.getBoundingClientRect();
+    const wmOnScreen = wmRect.bottom > 0 && wmRect.top < vh() && effective > 0.05;
+    const showTop = showcase.getBoundingClientRect().top;
+    const headingInView = showTop < vh() - 2 && showTop > -2;
+    if (release < 0 && getComputedStyle(stage).position !== 'fixed') release = y;
+    if (headingInView && headEnter < 0) { headEnter = y; effAtEntry = effective; }
+    if (wmOnScreen && headingInView) overlap = true;
+  }
+  return { sectionH: Math.round(sectionH), release, headEnter, effAtEntry: Number(effAtEntry.toFixed(2)), overlap };
+});
+log('Pin releases before heading enters (no overlap)', overlapScan.release >= 0 && overlapScan.headEnter > overlapScan.release + 40 && !overlapScan.overlap && overlapScan.effAtEntry < 0.05, `release=${overlapScan.release} headEnter=${overlapScan.headEnter} effAlpha=${overlapScan.effAtEntry} overlap=${overlapScan.overlap}`);
+
+// ===== 8. Narrowest width 320 =====
 await page.setViewportSize({ width: 320, height: 700 });
 await page.evaluate(() => window.scrollTo(0, 0));
 await page.waitForTimeout(1200);
@@ -162,7 +210,7 @@ await scrollToFraction(0.5);
 await page.waitForTimeout(600);
 await page.screenshot({ path: OUT + 'hero-scrub-320.png' });
 
-// ===== 8. Console errors =====
+// ===== 9. Console errors =====
 log('No console errors', errors.length === 0, errors.slice(0, 4).join(' | '));
 
 console.log('\n=== SUMMARY ===');

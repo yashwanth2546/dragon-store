@@ -172,6 +172,10 @@ export function DragonHeroSequenceSection() {
         if (firstLoaded === BATCH_1) {
           readyRef.current = true;
           setReady(true);
+          /* Paint frame 0 immediately so the hero is never blank on load —
+             lastFrame stays -1 (or is reset) until a draw actually succeeds. */
+          lastFrameRef.current = -1;
+          if (draw(0)) lastFrameRef.current = 0;
         }
       }
     };
@@ -213,19 +217,20 @@ export function DragonHeroSequenceSection() {
   const draw = (frame) => {
     const canvas = canvasRef.current;
     const img = framesRef.current[frame];
-    if (!canvas || !img || !img.complete || !img.__loaded) return;
+    if (!canvas || !img || !img.complete || !img.__loaded) return false;
     const ctx = canvas.getContext('2d');
     ctx.imageSmoothingEnabled = true;
     ctx.imageSmoothingQuality = 'high';
     const cw = canvas.width;
     const ch = canvas.height;
-    if (cw === 0 || ch === 0) return;
+    if (cw === 0 || ch === 0) return false;
     const scale = Math.max(cw / FRAME_W, ch / FRAME_H);
     const sw = cw / scale;
     const sh = ch / scale;
     const sx = (FRAME_W - sw) / 2;
     const sy = (FRAME_H - sh) / 2;
     ctx.drawImage(img, sx, sy, sw, sh, 0, 0, cw, ch);
+    return true;
   };
 
   /* ---------- canvas backing store + cover resize ---------- */
@@ -265,9 +270,8 @@ export function DragonHeroSequenceSection() {
       raf = requestAnimationFrame(loop);
       const p = clamp01(progressRef.current);
       const target = readyRef.current ? Math.round(p * (TOTAL_FRAMES - 1)) : 0;
-      if (target !== lastFrameRef.current) {
+      if (target !== lastFrameRef.current && draw(target)) {
         lastFrameRef.current = target;
-        draw(target);
         if (window.__dragonHero) window.__dragonHero.frame = target;
       }
     };
@@ -319,6 +323,38 @@ export function DragonHeroSequenceSection() {
       releaseRef.current = null;
     };
   }, [useSequence]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  /* ---------- viewport-height sync ----------
+     Pin distance is derived from the section (400 * 100vh) and the live
+     viewport at each refresh. Mobile URL-bar show/hide + orientation
+     changes alter innerHeight without always firing a reliable resize, so
+     watch innerHeight and refresh ScrollTrigger when it moves. This keeps
+     the pin release aligned with the REAL painted viewport. */
+  useEffect(() => {
+    if (!useSequence) return;
+    let lastH = window.innerHeight;
+    let t;
+    const check = () => {
+      const h = window.innerHeight;
+      if (h !== lastH) {
+        lastH = h;
+        ScrollTrigger.refresh();
+      }
+    };
+    const onScroll = () => {
+      clearTimeout(t);
+      t = setTimeout(check, 250);
+    };
+    window.addEventListener('resize', check);
+    window.addEventListener('orientationchange', check);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => {
+      clearTimeout(t);
+      window.removeEventListener('resize', check);
+      window.removeEventListener('orientationchange', check);
+      window.removeEventListener('scroll', onScroll);
+    };
+  }, [useSequence]);
 
   /* ---------- expose state for verification ---------- */
   useEffect(() => {
