@@ -364,6 +364,7 @@ export function DragonHeroSequenceSection() {
           <video
             className="absolute inset-0 h-full w-full object-cover"
             src="/dragon_final_render_clean.mp4"
+            poster="/dragon-hero-sequence/frame_0001.webp"
             autoPlay
             muted
             loop

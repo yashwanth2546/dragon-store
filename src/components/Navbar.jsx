@@ -28,18 +28,18 @@ export function Navbar({ cartCount, onOpenCart, onOpenSearch, isCartBouncing, sm
           : 'bg-transparent py-6'
       }`}
     >
-      <div className="mx-auto flex max-w-[1600px] items-center justify-between px-5 sm:px-10 lg:px-16">
+      <div className="mx-auto flex max-w-[1600px] items-center justify-between gap-3 px-5 pt-[env(safe-area-inset-top)] sm:px-10 lg:px-16">
         {/* Brand */}
-        <button onClick={() => go('hero')} className="interactive group flex items-center gap-3">
-          <div className="relative flex h-9 w-9 items-center justify-center">
+        <button onClick={() => go('hero')} className="interactive group flex min-w-0 flex-1 items-center gap-3">
+          <div className="relative flex h-9 w-9 shrink-0 items-center justify-center">
             <div className="absolute inset-0 rounded-lg bg-gradient-to-br from-gold-deep to-gold-bright opacity-90 blur-[6px] transition-opacity group-hover:opacity-100" />
             <div className="relative flex h-9 w-9 items-center justify-center rounded-lg bg-surface font-display text-lg text-gold-bright">
               R
             </div>
           </div>
-          <div className="text-left leading-none">
-            <span className="block font-display text-xl tracking-wide text-gold-bright">RYUGEAR</span>
-            <span className="mt-0.5 block font-tech text-[9px] uppercase tracking-[0.35em] text-dim">
+          <div className="min-w-0 text-left leading-none">
+            <span className="block truncate font-display text-lg tracking-wide text-gold-bright sm:text-xl">RYUGEAR</span>
+            <span className="mt-0.5 hidden truncate font-tech text-[9px] uppercase tracking-[0.35em] text-dim sm:block">
               Esports peripherals
             </span>
           </div>
@@ -59,11 +59,11 @@ export function Navbar({ cartCount, onOpenCart, onOpenSearch, isCartBouncing, sm
         </nav>
 
         {/* Actions */}
-        <div className="flex items-center gap-2.5">
+        <div className="flex shrink-0 items-center gap-2 sm:gap-2.5">
           <button
             onClick={onOpenSearch}
             aria-label="Search"
-            className="interactive flex h-10 w-10 items-center justify-center rounded-lg border border-line text-mut transition-colors hover:border-gold/50 hover:text-gold-bright"
+            className="interactive flex h-11 w-11 items-center justify-center rounded-lg border border-line text-mut transition-colors hover:border-gold/50 hover:text-gold-bright"
           >
             <Search className="h-4 w-4" />
           </button>
@@ -73,7 +73,7 @@ export function Navbar({ cartCount, onOpenCart, onOpenSearch, isCartBouncing, sm
             aria-label="Open cart"
             animate={isCartBouncing ? { scale: [1, 1.2, 0.95, 1.08, 1] } : { scale: 1 }}
             transition={{ duration: 0.45 }}
-            className="interactive relative flex h-10 items-center gap-2 rounded-lg bg-gold px-4 font-tech text-xs font-semibold uppercase tracking-widest text-bg transition-colors hover:bg-gold-bright"
+            className="interactive relative flex h-11 items-center gap-2 rounded-lg bg-gold px-4 font-tech text-xs font-semibold uppercase tracking-widest text-bg transition-colors hover:bg-gold-bright"
           >
             <ShoppingBag className="h-4 w-4" />
             <span className="hidden sm:inline">Cart</span>
@@ -85,7 +85,7 @@ export function Navbar({ cartCount, onOpenCart, onOpenSearch, isCartBouncing, sm
           <button
             onClick={() => setMobileOpen(!mobileOpen)}
             aria-label="Menu"
-            className="interactive flex h-10 w-10 items-center justify-center rounded-lg border border-line text-ink lg:hidden"
+            className="interactive flex h-11 w-11 items-center justify-center rounded-lg border border-line text-ink lg:hidden"
           >
             {mobileOpen ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
           </button>

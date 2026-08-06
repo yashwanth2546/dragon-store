@@ -82,7 +82,7 @@ export function IntroLoader({ onComplete }) {
 
             <button
               onClick={skip}
-              className="interactive mt-10 rounded-full border border-line px-5 py-2 font-tech text-[10px] uppercase tracking-[0.3em] text-dim transition-colors hover:border-gold/50 hover:text-gold-bright"
+              className="interactive mt-10 min-h-11 rounded-full border border-line px-6 font-tech text-[10px] uppercase tracking-[0.3em] text-dim transition-colors hover:border-gold/50 hover:text-gold-bright"
             >
               Skip intro
             </button>

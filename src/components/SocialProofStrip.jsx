@@ -84,19 +84,19 @@ export function SocialProofStrip() {
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.7 }}
-            className="flex items-center gap-6 rounded-xl border border-gold/30 bg-gradient-to-br from-gold/10 to-transparent p-6"
+            className="flex flex-wrap items-center justify-center gap-x-6 gap-y-4 rounded-xl border border-gold/30 bg-gradient-to-br from-gold/10 to-transparent p-5 sm:p-6"
           >
             <div className="text-center">
-              <span className="font-display text-5xl font-semibold text-gold-bright">5.0</span>
+              <span className="font-display text-4xl font-semibold text-gold-bright sm:text-5xl">5.0</span>
               <div className="mt-1 flex justify-center gap-0.5 text-gold">
                 {[0, 1, 2, 3, 4].map((s) => (
                   <Star key={s} className="h-3.5 w-3.5 fill-gold" />
                 ))}
               </div>
             </div>
-            <div className="h-12 w-px bg-line" />
-            <div>
-              <span className="font-display text-5xl font-semibold text-gradient-gold">130+</span>
+            <div className="hidden h-12 w-px bg-line sm:block" />
+            <div className="text-center">
+              <span className="font-display text-4xl font-semibold text-gradient-gold sm:text-5xl">130+</span>
               <p className="mt-1 font-tech text-[10px] uppercase tracking-[0.2em] text-gold-muted">
                 Verified reviews
                 <br />

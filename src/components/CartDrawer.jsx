@@ -41,7 +41,7 @@ export function CartDrawer({ isOpen, onClose, cartItems, onRemoveItem, onUpdateQ
               <button
                 onClick={onClose}
                 aria-label="Close"
-                className="interactive flex h-9 w-9 items-center justify-center rounded-lg border border-line text-mut transition-colors hover:border-gold/50 hover:text-gold-bright"
+                className="interactive flex h-11 w-11 items-center justify-center rounded-lg border border-line text-mut transition-colors hover:border-gold/50 hover:text-gold-bright"
               >
                 <X className="h-4 w-4" />
               </button>
@@ -81,9 +81,9 @@ export function CartDrawer({ isOpen, onClose, cartItems, onRemoveItem, onUpdateQ
                               <button
                                 onClick={() => onRemoveItem(item.id)}
                                 aria-label="Remove"
-                                className="interactive text-dim transition-colors hover:text-rose"
+                                className="interactive -m-1.5 rounded-md p-1.5 text-dim transition-colors hover:text-rose"
                               >
-                                <Trash2 className="h-3.5 w-3.5" />
+                                <Trash2 className="h-4 w-4" />
                               </button>
                             </div>
                             <p className="mt-0.5 font-tech text-[10px] uppercase tracking-wider text-dim">
@@ -95,17 +95,17 @@ export function CartDrawer({ isOpen, onClose, cartItems, onRemoveItem, onUpdateQ
                               <button
                                 onClick={() => onUpdateQty(item.id, -1)}
                                 aria-label="Decrease"
-                                className="interactive flex h-6 w-6 items-center justify-center rounded border border-line text-mut transition-colors hover:border-gold/50 hover:text-gold-bright"
+                                className="interactive flex h-9 w-9 items-center justify-center rounded-lg border border-line text-mut transition-colors hover:border-gold/50 hover:text-gold-bright"
                               >
-                                <Minus className="h-3 w-3" />
+                                <Minus className="h-3.5 w-3.5" />
                               </button>
-                              <span className="w-5 text-center font-tech text-sm text-ink">{item.qty}</span>
+                              <span className="w-6 text-center font-tech text-sm text-ink">{item.qty}</span>
                               <button
                                 onClick={() => onUpdateQty(item.id, 1)}
                                 aria-label="Increase"
-                                className="interactive flex h-6 w-6 items-center justify-center rounded border border-line text-mut transition-colors hover:border-gold/50 hover:text-gold-bright"
+                                className="interactive flex h-9 w-9 items-center justify-center rounded-lg border border-line text-mut transition-colors hover:border-gold/50 hover:text-gold-bright"
                               >
-                                <Plus className="h-3 w-3" />
+                                <Plus className="h-3.5 w-3.5" />
                               </button>
                             </div>
                             <span className="font-display text-lg font-semibold text-gold-bright">
@@ -121,7 +121,7 @@ export function CartDrawer({ isOpen, onClose, cartItems, onRemoveItem, onUpdateQ
             </div>
 
             {/* Footer */}
-            <div className="border-t border-line bg-bg/60 p-6">
+            <div className="border-t border-line bg-bg/60 p-6 pb-[max(1.5rem,env(safe-area-inset-bottom))]">
               <div className="mb-4 flex items-center justify-between">
                 <span className="font-tech text-xs uppercase tracking-[0.25em] text-gold-muted">Total</span>
                 <span className="font-display text-2xl font-semibold text-gold-bright">₹{total.toLocaleString('en-IN')}</span>

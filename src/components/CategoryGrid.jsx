@@ -51,7 +51,7 @@ export function CategoryGrid() {
           </motion.p>
         </div>
 
-        <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-6">
+        <div className="grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-3 lg:grid-cols-6">
           {categories.map((cat, i) => (
             <motion.a
               key={cat.name}
@@ -60,7 +60,7 @@ export function CategoryGrid() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.3 }}
               transition={{ delay: i * 0.07, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-              className="interactive group relative flex flex-col gap-4 overflow-hidden rounded-xl border border-line bg-surface p-5 transition-all duration-300 hover:border-gold/50 hover:shadow-[0_0_40px_-10px_rgba(217,168,60,0.4)]"
+              className="interactive group relative flex flex-col gap-3 overflow-hidden rounded-xl border border-line bg-surface p-4 transition-all duration-300 hover:border-gold/50 hover:shadow-[0_0_40px_-10px_rgba(217,168,60,0.4)] sm:gap-4 sm:p-5"
             >
               {/* hover glow */}
               <div className="absolute -right-10 -top-10 h-24 w-24 rounded-full bg-gold/20 blur-2xl opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
@@ -73,14 +73,14 @@ export function CategoryGrid() {
               </div>
 
               <div>
-                <h3 className="font-tech text-base font-semibold uppercase tracking-wide text-ink">
+                <h3 className="font-tech text-sm font-semibold uppercase tracking-wide text-ink sm:text-base">
                   {cat.name}
                 </h3>
                 <div className="mt-2 flex items-baseline gap-1.5">
-                  <span className="font-display text-xl font-semibold text-gold-bright">{cat.count}</span>
+                  <span className="font-display text-lg font-semibold text-gold-bright sm:text-xl">{cat.count}</span>
                   <span className="font-body text-[11px] text-gold-muted">models</span>
                 </div>
-                <p className="mt-1 font-body text-[11px] leading-snug text-mut">{cat.desc}</p>
+                <p className="mt-1 hidden font-body text-[11px] leading-snug text-mut sm:block">{cat.desc}</p>
               </div>
             </motion.a>
           ))}

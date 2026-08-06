@@ -13,9 +13,13 @@ function ProductVisual({ product }) {
       alt={product.name}
       className="h-full w-full object-cover"
       draggable={false}
+      loading="lazy"
+      decoding="async"
     />
   );
 }
+
+const touchDevice = () => typeof window !== 'undefined' && window.matchMedia('(hover: none)').matches;
 
 export function ProductCard({ product, index, onAddToCart }) {
   const [selectedVariant, setSelectedVariant] = useState(product.variants[0].value);
@@ -24,6 +28,7 @@ export function ProductCard({ product, index, onAddToCart }) {
   const wrapRef = useRef(null);
 
   const handleMove = (e) => {
+    if (touchDevice()) return;
     const el = wrapRef.current;
     if (!el) return;
     const r = el.getBoundingClientRect();
@@ -35,6 +40,10 @@ export function ProductCard({ product, index, onAddToCart }) {
   const reset = () => {
     setHovered(false);
     setTilt({ rx: 0, ry: 0 });
+  };
+
+  const enter = () => {
+    if (!touchDevice()) setHovered(true);
   };
 
   return (
@@ -55,7 +64,7 @@ export function ProductCard({ product, index, onAddToCart }) {
         ref={wrapRef}
         data-tilt-wrap
         onMouseMove={handleMove}
-        onMouseEnter={() => setHovered(true)}
+        onMouseEnter={enter}
         onMouseLeave={reset}
         className="relative aspect-[4/3] overflow-hidden border-b border-line [perspective:1100px]"
       >
@@ -102,7 +111,7 @@ export function ProductCard({ product, index, onAddToCart }) {
         </div>
 
         {/* Hint */}
-        <div className="absolute right-4 top-4 z-20 flex items-center gap-1.5 font-tech text-[10px] uppercase tracking-[0.2em] text-dim opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+        <div className="absolute right-4 top-4 z-20 flex items-center gap-1.5 font-tech text-[10px] uppercase tracking-[0.2em] text-dim opacity-100 transition-opacity duration-300 md:opacity-0 md:group-hover:opacity-100">
           <Rotate3D className="h-3 w-3 text-gold" />
           360° Inspect
         </div>
@@ -159,7 +168,7 @@ export function ProductCard({ product, index, onAddToCart }) {
               <button
                 key={v.value}
                 onClick={() => setSelectedVariant(v.value)}
-                className={`rounded-sm border px-2.5 py-1 font-tech text-xs transition-colors ${
+                className={`flex min-h-10 items-center rounded-sm border px-3 font-tech text-xs transition-colors ${
                   selectedVariant === v.value
                     ? 'border-gold bg-gold/15 text-gold-bright'
                     : 'border-line text-mut hover:border-gold/40 hover:text-ink'

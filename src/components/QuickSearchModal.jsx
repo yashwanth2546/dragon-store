@@ -39,7 +39,7 @@ export function QuickSearchModal({ isOpen, onClose }) {
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           onClick={onClose}
-          className="fixed inset-0 z-[60] flex items-start justify-center bg-black/70 px-4 pt-24 backdrop-blur-md"
+          className="fixed inset-0 z-[60] flex items-start justify-center bg-black/70 px-4 pt-[max(6rem,calc(env(safe-area-inset-top)+4rem))] backdrop-blur-md"
         >
           <motion.div
             initial={{ y: -24, opacity: 0, scale: 0.98 }}
@@ -62,7 +62,7 @@ export function QuickSearchModal({ isOpen, onClose }) {
               <button
                 onClick={onClose}
                 aria-label="Close"
-                className="interactive flex h-8 w-8 items-center justify-center rounded-lg border border-line text-mut transition-colors hover:border-gold/50 hover:text-gold-bright"
+                className="interactive flex h-10 w-10 items-center justify-center rounded-lg border border-line text-mut transition-colors hover:border-gold/50 hover:text-gold-bright"
               >
                 <X className="h-4 w-4" />
               </button>

@@ -132,7 +132,7 @@ export function MacroSpecSection() {
             </ul>
 
             {/* Stats */}
-            <div className="grid grid-cols-3 gap-4">
+            <div className="grid grid-cols-3 gap-3 sm:gap-4">
               {stats.map((s, i) => (
                 <motion.div
                   key={s.label}
@@ -140,11 +140,11 @@ export function MacroSpecSection() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.6, delay: 0.1 + i * 0.1 }}
-                  className="flex flex-col gap-1 rounded-lg border border-line bg-surface p-4"
+                  className="flex flex-col gap-1 rounded-lg border border-line bg-surface p-3 sm:p-4"
                 >
                   <s.icon className="h-4 w-4 text-gold" />
-                  <span className="font-display text-2xl font-semibold text-gold-bright">{s.value}</span>
-                  <span className="font-tech text-[10px] uppercase tracking-[0.2em] text-gold-muted">{s.label}</span>
+                  <span className="font-display text-xl font-semibold text-gold-bright sm:text-2xl">{s.value}</span>
+                  <span className="font-tech text-[9px] uppercase tracking-[0.2em] text-gold-muted sm:text-[10px]">{s.label}</span>
                 </motion.div>
               ))}
             </div>
@@ -155,10 +155,10 @@ export function MacroSpecSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8, delay: 0.3 }}
-              className="flex items-center justify-between rounded-xl border border-gold/30 bg-gold/5 p-6"
+              className="flex flex-wrap items-center justify-between gap-3 rounded-xl border border-gold/30 bg-gold/5 p-4 sm:p-6"
             >
               <div className="flex items-center gap-3">
-                <Zap className="h-5 w-5 text-gold-bright" />
+                <Zap className="h-5 w-5 shrink-0 text-gold-bright" />
                 <p className="font-tech text-xs uppercase tracking-[0.25em] text-dim">
                   Level up your game
                 </p>
