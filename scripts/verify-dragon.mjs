@@ -1,7 +1,7 @@
 import { chromium } from 'playwright-core';
 
 const EXECUTABLE = process.env.HOME + '/Library/Caches/ms-playwright/chromium-1234/chrome-mac-arm64/Google Chrome for Testing.app/Contents/MacOS/Google Chrome for Testing';
-const BASE = 'http://localhost:5173/';
+const BASE = process.env.BASE_URL || 'http://localhost:5173/';
 
 const results = [];
 const errors = [];

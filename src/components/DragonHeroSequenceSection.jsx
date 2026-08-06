@@ -215,6 +215,8 @@ export function DragonHeroSequenceSection() {
     const img = framesRef.current[frame];
     if (!canvas || !img || !img.complete || !img.__loaded) return;
     const ctx = canvas.getContext('2d');
+    ctx.imageSmoothingEnabled = true;
+    ctx.imageSmoothingQuality = 'high';
     const cw = canvas.width;
     const ch = canvas.height;
     if (cw === 0 || ch === 0) return;
@@ -231,13 +233,16 @@ export function DragonHeroSequenceSection() {
     if (!useSequence) return;
     const canvas = canvasRef.current;
     if (!canvas) return;
+    const ctx = canvas.getContext('2d');
 
     const resize = () => {
-      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      const dpr = Math.min(window.devicePixelRatio || 1, 3);
       const rect = canvas.getBoundingClientRect();
       if (rect.width === 0 || rect.height === 0) return;
       canvas.width = Math.round(rect.width * dpr);
       canvas.height = Math.round(rect.height * dpr);
+      ctx.imageSmoothingEnabled = true;
+      ctx.imageSmoothingQuality = 'high';
       if (lastFrameRef.current >= 0) draw(lastFrameRef.current);
       else draw(0);
     };
